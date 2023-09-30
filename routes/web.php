@@ -37,13 +37,13 @@ Route::get('/admin/admins/add', function () {
 Route::get('/admin/admins/edit/{id}', function ($id) {
     return view('admin.admins', [
         'do' => 'edit',
-        'admin' => User::findOrFail($id)->where('role', true)
+        'id' => $id
     ]);
 });
 Route::get('/admin/admins/delete/{id}', function ($id) {
     return view('admin.admins', [
         'do' => 'delete',
-        'admin' => User::findOrFail($id)->where('role', true)
+        'id' => $id
     ]);
 });
 
