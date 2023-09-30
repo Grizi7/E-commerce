@@ -1,5 +1,8 @@
 <?php
 
+
+
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +20,31 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', function () {
     return view('admin.auth.signin');
+});
+
+// admins routes
+Route::get('/admin/admins', function () {
+    return view('admin.admins', [
+        'do' => 'view',
+        $admins = User::all()->where('role', true)
+    ]);
+});
+Route::get('/admin/admins/add', function () {
+    return view('admin.admins', [
+        'do' => 'add',
+    ]);
+});
+Route::get('/admin/admins/edit/{id}', function ($id) {
+    return view('admin.admins', [
+        'do' => 'edit',
+        'admin' => User::findOrFail($id)->where('role', true)
+    ]);
+});
+Route::get('/admin/admins/delete/{id}', function ($id) {
+    return view('admin.admins', [
+        'do' => 'delete',
+        'admin' => User::findOrFail($id)->where('role', true)
+    ]);
 });
 
 
