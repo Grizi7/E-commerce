@@ -1,22 +1,13 @@
-<?php
-    use App\Models\User;
-?>
 @extends('admin.layouts.app')
 @section('content')
-    
-    @if(isset($do))
 
+    @if(isset($do))
         <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
                 @if($do == 'view')
-                    <?php
-                        $admins = User::all()->where('role', true);
-                    ?>
-                    
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
                             @if($admins->count() >= 1)
-                                
                                 <h6 class="mb-4">Admins Table</h6>
                                 <div class="table-responsive">
                                     <table class="table">
@@ -38,7 +29,13 @@
                                                     <td>{{$admin['created_at']}}</td>
                                                     <td>
                                                         <a href="/admin/admins/edit/{{$admin['id']}}"><button type="button" class="btn btn-outline-warning m-2"><i class="fa fa-pen"></i> edit</button></a>
-                                                        <a href="/admin/admins/delete/{{$admin['id']}}"><button type="button" class="btn btn-outline-danger m-2"><i class="fa fa-trash"></i> delete</button></a>
+                                                        <a action="/admin/admins"  onclick="event.preventDefault(); document.getElementById('delete-form-{{$admin['id']}}').submit();">
+                                                        <button type="submit" class="btn btn-outline-danger m-2"><i class="fa fa-trash"></i> delete</button></a>
+                                                        <form id="delete-form-{{$admin['id']}}" action="/admin/admins" method="POST" class="d-none">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <input name="id" hidden type="text" value="{{$admin['id']}}">
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -60,13 +57,15 @@
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Admin Form</h6>
-                            <form>
+                            <form method="POST" >
+                                @csrf
                                 <div class="row mb-3">
 
                                     <label for="exampleInputName" class="form-label col-lg-2">Name</label>
                                     <div class="col-lg-4 ">    
                                         <input type="text" class="form-control" id="exampleInputName" required name="name">
                                     </div>
+                                    
                                 </div>
                                 <div class="row mb-3">
 
@@ -87,13 +86,12 @@
                         </div>
                     </div>
                 @elseif($do == 'edit')
-                    <?php
-                        $admin = User::findOrFail($id);
-                    ?>
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Edit Admin</h6>
-                            <form>
+                            <form method="POST">
+                                @method('PUT')
+                                @csrf
                                 <div class="row mb-3">
 
                                     <label for="exampleInputName" class="form-label col-lg-2">Name</label>
@@ -121,28 +119,8 @@
                             </form>
                         </div>
                     </div>
-                @elseif($do == 'delete')
-                    <?php
-                        User::findOrFail($id)->where('role', true)->delete();
-                    ?>
-                    <div class="col-12">
-                        <div class="bg-secondary rounded h-100 p-4">
-                            <div class="alert alert-danger" role="alert">
-                                Admin deleted successfully.
-                            </div>
-                            <script>
-                                setTimeout(function() {
-                                    window.location.href = '/admin/admins';
-                                }, 5000);
-                            </script>
-                        </div>
-                    </div>
                 @endif
             </div>
         </div>
-        
-    @else
-        
-    
     @endif
 @endsection

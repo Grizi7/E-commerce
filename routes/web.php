@@ -2,9 +2,8 @@
 
 
 
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\Admins;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,29 +22,10 @@ Route::get('/admin', function () {
 });
 
 // admins routes
-Route::get('/admin/admins', function () {
-    return view('admin.admins', [
-        'do' => 'view',
-        $admins = User::all()->where('role', true)
-    ]);
-});
-Route::get('/admin/admins/add', function () {
-    return view('admin.admins', [
-        'do' => 'add',
-    ]);
-});
-Route::get('/admin/admins/edit/{id}', function ($id) {
-    return view('admin.admins', [
-        'do' => 'edit',
-        'id' => $id
-    ]);
-});
-Route::get('/admin/admins/delete/{id}', function ($id) {
-    return view('admin.admins', [
-        'do' => 'delete',
-        'id' => $id
-    ]);
-});
+Route::get('/admin/admins',[Admins::class,'index']);
+Route::get('/admin/admins/add', [Admins::class,'create']);
+Route::get('/admin/admins/edit/{id}', [Admins::class,'edit']);
+Route::delete('/admin/admins', [Admins::class,'destroy']);
 
 
 Route::group(['middleware'=>[]],function(){

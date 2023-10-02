@@ -48,7 +48,7 @@
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
+                    <form class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3" method="POST" action="{{ url('/admin') }}">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <a href="/admin" class="">
                                 <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Karma</h3>
@@ -71,7 +71,7 @@
                             <a href="">Forgot Password</a>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

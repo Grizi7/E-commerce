@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        
 
         \App\Models\User::factory()->create([
             'name' => 'Zidan',
@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('eman123'),
             'role' => true,
         ]);
+        \App\Models\User::factory(10)->create();
     }
 }
