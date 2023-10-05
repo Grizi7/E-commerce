@@ -24,7 +24,11 @@ Route::get('/admin', function () {
 // admins routes
 Route::get('/admin/admins',[Admins::class,'index']);
 Route::get('/admin/admins/add', [Admins::class,'create']);
+Route::post('/admin/admins/add', [Admins::class,'store']);
+Route::get('/admin/admins/stored/{id}', [Admins::class,'stored']);
 Route::get('/admin/admins/edit/{id}', [Admins::class,'edit']);
+Route::patch('/admin/admins/edit/{id}', [Admins::class,'update']);
+Route::get('/admin/admins/updated/{id:updated_at}', [Admins::class,'updated']);
 Route::delete('/admin/admins', [Admins::class,'destroy']);
 
 

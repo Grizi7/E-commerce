@@ -63,7 +63,10 @@
 
                                     <label for="exampleInputName" class="form-label col-lg-2">Name</label>
                                     <div class="col-lg-4 ">    
-                                        <input type="text" class="form-control" id="exampleInputName" required name="name">
+                                        <input type="text" class="form-control" id="exampleInputName" required name="name" value="{{old('name')}}">
+                                        @error('name')
+                                            <p class="text-danger mt-1 mb-0">{{$message}}</p>
+                                        @enderror
                                     </div>
                                     
                                 </div>
@@ -71,7 +74,10 @@
 
                                     <label for="exampleInputEmail1" class="form-label col-lg-2">Email address</label>
                                     <div class="col-lg-4 ">    
-                                        <input type="email" class="form-control" id="exampleInputEmail1" required name="email">
+                                        <input type="email" class="form-control" id="exampleInputEmail1" required name="email" value="{{old('email')}}">
+                                        @error('email')
+                                            <p class="text-danger mt-1 mb-0">{{$message}}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -79,10 +85,27 @@
                                     <label for="exampleInputPassword" class="form-label col-lg-2">Password</label>
                                     <div class="col-lg-4 ">    
                                         <input type="password" class="form-control" id="exampleInputPassword" required name="password">
+                                        @error('password')
+                                            <p class="text-danger mt-1 mb-0">{{$message}}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </form>
+                        </div>
+                    </div>
+                
+                @elseif($do == 'stored')
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <div class="alert alert-success" role="alert">
+                                User added successfully.
+                            </div>
+                            <script>
+                                setTimeout(function() {
+                                    window.location.href = '/admin/admins';
+                                }, 5000);
+                            </script>
                         </div>
                     </div>
                 @elseif($do == 'edit')
@@ -90,13 +113,16 @@
                         <div class="bg-secondary rounded h-100 p-4">
                             <h6 class="mb-4">Edit Admin</h6>
                             <form method="POST">
-                                @method('PUT')
+                                @method('PATCH')
                                 @csrf
                                 <div class="row mb-3">
 
                                     <label for="exampleInputName" class="form-label col-lg-2">Name</label>
                                     <div class="col-lg-4 ">    
                                         <input type="text" class="form-control" id="exampleInputName" required name="name" value="{{$admin->name}}">
+                                        @error('name')
+                                            <p class="text-danger mt-1 mb-0">{{$message}}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -104,19 +130,38 @@
                                     <label for="exampleInputEmail1" class="form-label col-lg-2">Email address</label>
                                     <div class="col-lg-4 ">    
                                         <input type="email" class="form-control" id="exampleInputEmail1" required name="email" value="{{$admin->email}}">
+                                        @error('email')
+                                            <p class="text-danger mt-1 mb-0">{{$message}}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
 
                                     <label for="exampleInputPassword" class="form-label col-lg-2">Password</label>
                                     <div class="col-lg-4 ">    
-                                        <input type="password" class="form-control" id="exampleInputPassword" required name="password" aria-describedby="passwordHelp">
+                                        <input type="password" class="form-control" id="exampleInputPassword" name="password" aria-describedby="passwordHelp">
+                                        @error('password')
+                                            <p class="text-danger mt-1 mb-0">{{$message}}</p>
+                                        @enderror
                                         <div id="passwordHelp" class="form-text">Leave blank if you don't want to change your password.
                                         </div>
                                     </div>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="Submit">
                             </form>
+                        </div>
+                    </div>
+                @elseif($do == 'updated')
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <div class="alert alert-success" role="alert">
+                                User uptaded successfully.
+                            </div>
+                            <script>
+                                setTimeout(function() {
+                                    window.location.href = '/admin/admins';
+                                }, 5000);
+                            </script>
                         </div>
                     </div>
                 @endif
