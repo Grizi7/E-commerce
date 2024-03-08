@@ -28,5 +28,12 @@ class DatabaseSeeder extends Seeder
             'role' => true,
         ]);
         \App\Models\User::factory(10)->create();
+        $products = \App\Models\Product::factory(10)->create();
+        foreach ($products as $product){
+            \App\Models\Image::factory()->create([
+                'product_id' => $product->id,
+            ]);
+        }
+        
     }
 }

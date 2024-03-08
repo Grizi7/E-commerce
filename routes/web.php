@@ -4,6 +4,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Admins;
+use App\Http\Controllers\Admin\Items;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,17 @@ Route::get('/admin/admins/edit/{id}', [Admins::class,'edit']);
 Route::patch('/admin/admins/edit/{id}', [Admins::class,'update']);
 Route::get('/admin/admins/updated/{id:updated_at}', [Admins::class,'updated']);
 Route::delete('/admin/admins', [Admins::class,'destroy']);
+
+
+// products routes
+Route::get('/admin/products',[Items::class,'index']);
+Route::get('/admin/products/add', [Items::class,'create']);
+Route::post('/admin/products/add', [Items::class,'store']);
+Route::get('/admin/products/stored/{id}', [Items::class,'stored']);
+Route::get('/admin/products/edit/{id}', [Items::class,'edit']);
+Route::patch('/admin/products/edit/{id}', [Items::class,'update']);
+Route::get('/admin/products/updated/{id:updated_at}', [Items::class,'updated']);
+Route::delete('/admin/products', [Items::class,'destroy']);
 
 
 Route::group(['middleware'=>[]],function(){
